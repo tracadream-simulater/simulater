@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>トレカ自販機 節税シミュレーター</title>
+  <meta name="description" content="トレカ自販機の導入台数・価格・税率から、概算の投資額や節税額を確認できるシミュレーターです。" />
+  <style>
+    :root {
+      --bg1: #6c84f7;
+      --bg2: #7d4bd3;
+      --panel: #f4f5fb;
+      --text: #243146;
+      --muted: #6f7a8d;
+      --border: #d7dceb;
+      --input-bg: #ffffff;
+      --shadow: 0 12px 28px rgba(86, 103, 180, 0.16);
+      --button-shadow: 0 8px 18px rgba(105, 77, 191, 0.25);
+      --radius-xl: 28px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic", sans-serif;
+      color: var(--text);
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 40px;
+    }
+
+    .hero {
+      text-align: center;
+      color: #fff;
+      padding: 8px 0 24px;
+    }
+
+    .hero-icon {
+      font-size: 44px;
+      margin-bottom: 6px;
+      display: inline-block;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18));
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(34px, 6vw, 62px);
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-shadow: 0 5px 16px rgba(0,0,0,0.2);
+    }
+
+    .hero p {
+      margin: 14px 0 0;
+      font-size: clamp(16px, 2.2vw, 22px);
+      font-weight: 700;
+      opacity: 0.96;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    }
+
+    .panel {
+      background: rgba(244, 245, 251, 0.98);
+      border-radius: var(--radius-xl);
+      padding: 30px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .section-title .icon {
+      font-size: 28px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(28px, 3vw, 42px);
+      font-weight: 900;
+      color: #30415d;
+    }
+
+    .subheading {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0 0 18px;
+      color: #2f3f5d;
+    }
+
+    .priority-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .priority-buttons button {
+      border: 0;
+      color: #fff;
+      font-weight: 800;
+      font-size: 18px;
+      padding: 18px 16px;
+      border-radius: 14px;
+      background: linear-gradient(90deg, #6d87f7, #8245c8);
+      box-shadow: var(--button-shadow);
+      cursor: grab;
+    }
+
+    .priority-buttons button:nth-child(4) {
+      grid-column: 1 / 2;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px 22px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 17px;
+      font-weight: 800;
+      color: #4b576c;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .prefix,
+    .suffix {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #7a8597;
+      font-weight: 700;
+      pointer-events: none;
+    }
+
+    .prefix { left: 16px; }
+    .suffix { right: 16px; }
+
+    input {
+      width: 100%;
+      border: 2px solid var(--border);
+      background: var(--input-bg);
+      border-radius: 14px;
+      padding: 18px 18px;
+      font-size: 28px;
+      color: #2c3b56;
+      outline: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+    }
+
+    .with-prefix { padding-left: 38px; }
+    .with-suffix { padding-right: 38px; }
+
+    input:focus {
+      border-color: #7a68e5;
+      box-shadow: 0 0 0 4px rgba(122,104,229,0.12);
+    }
+
+    .actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .action-btn {
+      border: 0;
+      border-radius: 14px;
+      padding: 16px 24px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .primary {
+      color: white;
+      background: linear-gradient(90deg, #6d87f7, #8245c8);
+      box-shadow: var(--button-shadow);
+    }
+
+    .secondary {
+      color: #4b5872;
+      background: #e9ecf7;
+    }
+
+    .result-panel {
+      margin-top: 24px;
+      background: rgba(255,255,255,0.14);
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .result-title {
+      color: white;
+      font-size: 28px;
+      font-weight: 900;
+      margin: 0 0 16px;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.16);
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .result-card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .result-card .label {
+      font-size: 14px;
+      font-weight: 800;
+      color: #6e7890;
+      margin-bottom: 10px;
+    }
+
+    .result-card .value {
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 900;
+      color: #30415d;
+      line-height: 1.2;
+      word-break: break-word;
+    }
+
+    .summary {
+      margin-top: 16px;
+      background: rgba(255,255,255,0.92);
+      border-radius: 18px;
+      padding: 18px;
+      line-height: 1.8;
+      color: #425066;
+      font-size: 15px;
+    }
+
+    .note {
+      margin-top: 16px;
+      color: rgba(255,255,255,0.92);
+      font-size: 13px;
+      line-height: 1.8;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 900px) {
+      .priority-buttons,
+      .grid,
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        padding: 22px;
+      }
+
+      input {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-icon">🧮</div>
+      <h1>節税シミュレーター</h1>
+      <p>あなたに合った導入プランの概算をその場でチェック</p>
+    </header>
+
+    <main class="panel">
+      <div class="section-title">
+        <div class="icon">⚙️</div>
+        <h2>条件設定</h2>
+      </div>
+
+      <p class="subheading">重視ポイント</p>
+      <div class="priority-buttons">
+        <button type="button">💴 節税額重視</button>
+        <button type="button">📈 収益性重視</button>
+        <button type="button">🏢 法人導入向け</button>
+        <button type="button">🛡 安心運用</button>
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label for="machineCount">導入台数</label>
+          <div class="input-wrap">
+            <input id="machineCount" type="number" min="1" value="1" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="unitPrice">1台あたり価格</label>
+          <div class="input-wrap">
+            <span class="prefix">¥</span>
+            <input id="unitPrice" class="with-prefix" type="number" min="0" value="10000000" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="taxRate">実効税率</label>
+          <div class="input-wrap">
+            <input id="taxRate" class="with-suffix" type="number" min="0" max="100" step="0.1" value="30" />
+            <span class="suffix">%</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="monthlyProfit">1台あたり想定月粗利</label>
+          <div class="input-wrap">
+            <span class="prefix">¥</span>
+            <input id="monthlyProfit" class="with-prefix" type="number" min="0" value="150000" />
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="action-btn primary" onclick="calculate()">シミュレーションする</button>
+        <button class="action-btn secondary" onclick="resetForm()">リセット</button>
+      </div>
+    </main>
+
+    <section class="result-panel">
+      <h3 class="result-title">シミュレーション結果</h3>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="label">総投資額</div>
+          <div class="value" id="totalInvestment">¥10,000,000</div>
+        </div>
+        <div class="result-card">
+          <div class="label">概算節税額</div>
+          <div class="value" id="taxSaving">¥3,000,000</div>
+        </div>
+        <div class="result-card">
+          <div class="label">年間想定粗利</div>
+          <div class="value" id="annualProfit">¥1,800,000</div>
+        </div>
+      </div>
+
+      <div class="summary" id="summaryText">
+        1台導入時の概算では、総投資額は <strong>¥10,000,000</strong>、概算節税額は <strong>¥3,000,000</strong>、年間想定粗利は <strong>¥1,800,000</strong> です。
+      </div>
+
+      <div class="note">
+        ※ 本シミュレーターは概算確認用です。実際の税務判断、制度適用可否、償却方法、税額計算は個別事情により異なります。正式な判断は税理士等の専門家へご確認ください。
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function formatYen(value) {
+      return '¥' + Math.round(value).toLocaleString('ja-JP');
+    }
+
+    function calculate() {
+      const machineCount = Number(document.getElementById('machineCount').value) || 0;
+      const unitPrice = Number(document.getElementById('unitPrice').value) || 0;
+      const taxRate = Number(document.getElementById('taxRate').value) || 0;
+      const monthlyProfit = Number(document.getElementById('monthlyProfit').value) || 0;
+
+      const totalInvestment = machineCount * unitPrice;
+      const taxSaving = totalInvestment * (taxRate / 100);
+      const annualProfit = machineCount * monthlyProfit * 12;
+
+      document.getElementById('totalInvestment').textContent = formatYen(totalInvestment);
+      document.getElementById('taxSaving').textContent = formatYen(taxSaving);
+      document.getElementById('annualProfit').textContent = formatYen(annualProfit);
+      document.getElementById('summaryText').innerHTML = `${machineCount}台導入時の概算では、総投資額は <strong>${formatYen(totalInvestment)}</strong>、概算節税額は <strong>${formatYen(taxSaving)}</strong>、年間想定粗利は <strong>${formatYen(annualProfit)}</strong> です。`;
+    }
+
+    function resetForm() {
+      document.getElementById('machineCount').value = 1;
+      document.getElementById('unitPrice').value = 10000000;
+      document.getElementById('taxRate').value = 30;
+      document.getElementById('monthlyProfit').value = 150000;
+      calculate();
+    }
+
+    calculate();
+  </script>
+</body>
+</html>
