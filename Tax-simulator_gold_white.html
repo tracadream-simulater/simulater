@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>トレカドリーム 節税シミュレーション</title>
+  <meta name="description" content="税金で消える資金を、節税＋資産＋収益へ。トレカドリームの節税シミュレーションサイトです。" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --panel: #ffffff;
+      --panel-strong: #ffffff;
+      --line: rgba(0, 0, 0, 0.08);
+      --gold: #c79b4b;
+      --gold-2: #e3bf77;
+      --gold-3: #9e7440;
+      --text: #111111;
+      --muted: #666666;
+      --white-soft: rgba(0,0,0,0.04);
+      --shadow: 0 18px 40px rgba(0,0,0,0.08);
+      --radius-xl: 26px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --maxw: 1180px;
+      --unit-price: 10000000;
+      --annual-profit-per-unit: 2304000;
+      --monthly-installment-per-unit: 183300;
+      --installment-months: 60;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Hiragino Sans", "Yu Gothic", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: #faf6ed;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: min(var(--maxw), calc(100% - 28px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      padding: 32px 0 22px;
+    }
+
+    .hero-box {
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, #ffffff, #fffaf2);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 28px 22px 26px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-box::after {
+      content: "";
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      top: -120px;
+      right: -80px;
+      background: radial-gradient(circle, rgba(199,155,75,0.12), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(199,155,75,0.24);
+      background: rgba(199,155,75,0.08);
+      color: var(--gold-3);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+      font-size: clamp(34px, 6vw, 60px);
+      line-height: 1.15;
+      letter-spacing: 0.03em;
+      margin: 18px 0 14px;
+      color: #111111;
+      text-shadow: none;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--muted);
+      margin: 0 0 22px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 0;
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-gold {
+      color: #26180a;
+      background: linear-gradient(135deg, var(--gold-2), var(--gold), var(--gold-3));
+      box-shadow: 0 12px 26px rgba(128, 90, 34, 0.16);
+    }
+
+    .btn-line {
+      color: var(--text);
+      background: #ffffff;
+      border: 1px solid var(--line);
+    }
+
+    .section {
+      margin-top: 22px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .section h2 {
+      margin: 0 0 8px;
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+      font-size: 28px;
+      color: #111111;
+      letter-spacing: 0.03em;
+    }
+
+    .section-copy {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: 14px;
+      font-weight: 800;
+      color: #111111;
+    }
+
+    .field small {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .input-wrap { position: relative; }
+
+    .prefix, .suffix {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #888888;
+      font-size: 14px;
+      font-weight: 800;
+      pointer-events: none;
+    }
+
+    .prefix { left: 14px; }
+    .suffix { right: 14px; }
+
+    input, select {
+      width: 100%;
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 16px;
+      background: #ffffff;
+      color: var(--text);
+      padding: 16px;
+      font-size: 16px;
+      outline: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    input:focus, select:focus {
+      border-color: rgba(199,155,75,0.45);
+      box-shadow: 0 0 0 4px rgba(199,155,75,0.10);
+    }
+
+    .with-prefix { padding-left: 34px; }
+    .with-suffix { padding-right: 34px; }
+
+    .choice-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .choice-btn {
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--text);
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .choice-btn.active {
+      color: #2a1b0d;
+      background: linear-gradient(135deg, var(--gold-2), var(--gold));
+      border-color: transparent;
+    }
+
+    .actions-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .summary-card {
+      border-radius: 18px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff, #fafafa);
+    }
+
+    .summary-card.featured {
+      background: linear-gradient(180deg, rgba(199,155,75,0.14), rgba(255,255,255,0.9));
+    }
+
+    .summary-card .kicker {
+      color: var(--gold-3);
+      font-size: 12px;
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .summary-card .num {
+      font-size: clamp(24px, 3.6vw, 36px);
+      font-weight: 900;
+      line-height: 1.15;
+      color: #111111;
+      word-break: break-word;
+    }
+
+    .summary-card .desc {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .recommend-box {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 16px;
+    }
+
+    .recommend-main,
+    .recommend-side {
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      padding: 20px;
+      background: #ffffff;
+    }
+
+    .recommend-badge {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(199,155,75,0.12);
+      border: 1px solid rgba(199,155,75,0.20);
+      color: var(--gold-3);
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .recommend-title {
+      font-size: 30px;
+      font-weight: 900;
+      margin: 0 0 10px;
+      color: #111111;
+    }
+
+    .recommend-copy {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    .recommend-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .recommend-item {
+      border-radius: 14px;
+      padding: 14px;
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.08);
+      font-size: 14px;
+      line-height: 1.7;
+      color: #222222;
+    }
+
+    .compare-wrap {
+      overflow-x: auto;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th, td {
+      padding: 16px 14px;
+      text-align: left;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      font-size: 14px;
+    }
+
+    th {
+      color: #111111;
+      font-weight: 800;
+      background: rgba(199,155,75,0.10);
+    }
+
+    td {
+      color: #222222;
+      line-height: 1.6;
+    }
+
+    .cta-box {
+      position: sticky;
+      bottom: 12px;
+      z-index: 3;
+      margin-top: 22px;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+
+    .cta-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .cta-title {
+      margin: 0 0 6px;
+      font-size: 20px;
+      font-weight: 900;
+      color: #111111;
+    }
+
+    .cta-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .notice {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .form-embed-wrap {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .form-embed-wrap iframe {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      border: 0;
+      background: #ffffff;
+    }
+
+    @media (max-width: 920px) {
+      .input-grid,
+      .summary-grid,
+      .recommend-box,
+      .cta-inner,
+      .choice-row {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-actions { justify-content: stretch; }
+      .cta-actions .btn { width: 100%; }
+      .summary-card .num { font-size: 30px; }
+      .section { padding: 18px; }
+      .hero-box { padding: 22px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div class="hero-box">
+        <span class="eyebrow">Luxury Simulation Tool</span>
+        <h1>トレカドリーム 節税シミュレーション</h1>
+        <p class="hero-copy">
+          税金で消える資金を、節税だけで終わらせず、資産と収益へ転換するための意思決定ツールです。
+          想定利益・税率・台数・購入方法を入力すると、節税額・実質負担額・年間収益・回収期間を概算で確認できます。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="#simulator">シミュレーションする</a>
+          <a class="btn btn-line" href="#contact">無料相談へ進む</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" id="simulator">
+      <h2>入力</h2>
+      <p class="section-copy">入力は最小限に絞っています。スマホでもそのまま使える設計です。</p>
+
+      <div class="input-grid">
+        <div class="field">
+          <label for="profitInput">想定利益（年間）</label>
+          <div class="input-wrap">
+            <span class="prefix">¥</span>
+            <input id="profitInput" class="with-prefix" type="number" min="0" step="10000" value="6912000" />
+          </div>
+          <small>初期値は3台プラン相当の年間利益イメージです。</small>
+        </div>
+
+        <div class="field">
+          <label for="taxRateInput">税率</label>
+          <div class="input-wrap">
+            <input id="taxRateInput" class="with-suffix" type="number" min="0" max="100" step="0.1" value="30" />
+            <span class="suffix">%</span>
+          </div>
+          <small>初期値は30%です。</small>
+        </div>
+
+        <div class="field">
+          <label>台数</label>
+          <div class="choice-row" id="unitButtons">
+            <button type="button" class="choice-btn" data-units="1">1台</button>
+            <button type="button" class="choice-btn active" data-units="3">3台</button>
+            <button type="button" class="choice-btn" data-units="5">5台</button>
+          </div>
+          <input id="unitsInput" type="hidden" value="3" />
+        </div>
+
+        <div class="field">
+          <label for="purchaseMethod">購入方法</label>
+          <select id="purchaseMethod">
+            <option value="undecided">未定</option>
+            <option value="cash">現金</option>
+            <option value="installment">割賦</option>
+          </select>
+          <small>未定の場合は3台プランを基準におすすめを表示します。</small>
+        </div>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn btn-gold" type="button" onclick="calculate()">結果を表示する</button>
+        <button class="btn btn-line" type="button" onclick="resetSimulation()">初期値に戻す</button>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>結果サマリー</h2>
+      <p class="section-copy">重要な指標をひと目で確認できるよう、4つの数字を強調表示しています。</p>
+      <div class="summary-grid">
+        <div class="summary-card featured">
+          <div class="kicker">節税額</div>
+          <div class="num" id="taxSavingValue">¥9,000,000</div>
+          <div class="desc">設備投資額 × 税率で概算しています。</div>
+        </div>
+        <div class="summary-card">
+          <div class="kicker">実質負担額</div>
+          <div class="num" id="realBurdenValue">¥21,000,000</div>
+          <div class="desc">総支払額 − 節税額</div>
+        </div>
+        <div class="summary-card">
+          <div class="kicker">年間収益</div>
+          <div class="num" id="annualProfitValue">¥6,912,000</div>
+          <div class="desc">入力した想定利益を表示します。</div>
+        </div>
+        <div class="summary-card">
+          <div class="kicker">回収期間</div>
+          <div class="num" id="paybackValue">3.0年</div>
+          <div class="desc">実質負担 ÷ 年間利益で概算します。</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>おすすめプラン</h2>
+      <p class="section-copy">入力内容に応じて、もっとも提案しやすいプランを自動で表示します。</p>
+      <div class="recommend-box">
+        <div class="recommend-main">
+          <span class="recommend-badge">Recommended</span>
+          <h3 class="recommend-title" id="recommendedPlanTitle">おすすめ：3台プラン</h3>
+          <p class="recommend-copy" id="recommendedPlanCopy">
+            節税効率・収益バランス・導入のしやすさが最も整っているため、はじめての検討先としておすすめです。
+          </p>
+          <div class="recommend-list">
+            <div class="recommend-item" id="recommendReason1">バランス・節税効率が最適</div>
+            <div class="recommend-item" id="recommendReason2">導入ハードルと収益期待の両立がしやすい</div>
+            <div class="recommend-item" id="recommendReason3">現金・割賦どちらでも提案しやすい</div>
+          </div>
+        </div>
+        <div class="recommend-side">
+          <span class="recommend-badge">現在の入力から見た評価</span>
+          <div class="recommend-list">
+            <div class="recommend-item"><strong>購入方法：</strong><span id="currentMethodLabel">未定</span></div>
+            <div class="recommend-item"><strong>台数：</strong><span id="currentUnitsLabel">3台</span></div>
+            <div class="recommend-item"><strong>年間利益：</strong><span id="currentProfitLabel">¥6,912,000</span></div>
+            <div class="recommend-item"><strong>コメント：</strong><span id="recommendComment">節税と収益を両立しやすい構成です。</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>キャッシュ / 割賦 比較</h2>
+      <p class="section-copy">現金は節税最大化、割賦は資金温存という特性があります。比較しながら意思決定できます。</p>
+      <div class="compare-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>比較項目</th>
+              <th>現金</th>
+              <th>割賦</th>
+              <th>ハイブリッド</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>初期手出し</td>
+              <td id="cashInitial">¥30,000,000</td>
+              <td id="installmentInitial">¥0</td>
+              <td id="hybridInitial">¥15,000,000</td>
+            </tr>
+            <tr>
+              <td>月額支払い</td>
+              <td>¥0</td>
+              <td id="installmentMonthly">¥549,900</td>
+              <td id="hybridMonthly">¥274,950</td>
+            </tr>
+            <tr>
+              <td>総支払額</td>
+              <td id="cashTotal">¥30,000,000</td>
+              <td id="installmentTotal">¥32,994,000</td>
+              <td id="hybridTotal">¥31,497,000</td>
+            </tr>
+            <tr>
+              <td>節税額</td>
+              <td id="cashSaving">¥9,000,000</td>
+              <td id="installmentSaving">¥9,000,000</td>
+              <td id="hybridSaving">¥9,000,000</td>
+            </tr>
+            <tr>
+              <td>実質負担額</td>
+              <td id="cashBurden">¥21,000,000</td>
+              <td id="installmentBurden">¥23,994,000</td>
+              <td id="hybridBurden">¥22,497,000</td>
+            </tr>
+            <tr>
+              <td>収益</td>
+              <td id="cashProfit">¥6,912,000 / 年</td>
+              <td id="installmentProfit">¥6,912,000 / 年</td>
+              <td id="hybridProfit">¥6,912,000 / 年</td>
+            </tr>
+            <tr>
+              <td>おすすめ対象</td>
+              <td>節税最大化を重視する方</td>
+              <td>資金温存を重視する方</td>
+              <td>バランス重視の方</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="notice">
+        ※ 現金は即時償却（最大100%）を前提とした概算表示です。<br>
+        ※ 割賦は頭金0円・金利0円・最大60回を前提とした例示です。月利益192,000円に対し返済183,300円のケースをもとに、1台あたり月額183,300円で計算しています。<br>
+        ※ 税務判断および制度適用可否は必ず税理士等へご確認ください。
+      </p>
+    </section>
+
+    <section class="section" id="contact">
+      <h2>無料相談 / 資料請求</h2>
+      <p class="section-copy">ご入力内容をもとに、より詳細な収支設計や導入条件のご相談が可能です。</p>
+
+      <div class="form-embed-wrap">
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSeBtMdhFv6VtwjU6vegr0nRRLsJoy_oZcJoCZtH4rLoUAWZaw/viewform?embedded=true"
+          width="640"
+          height="911"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+        >読み込んでいます…</iframe>
+      </div>
+
+      <p class="notice">
+        ※ 本サイトの数値は概算です。詳細条件により変動します。<br>
+        ※ 詳細は個別相談にてご案内します。<br>
+        ※ 税務は必ず税理士確認が必要です。
+      </p>
+    </section>
+
+    <div class="cta-box">
+      <div class="cta-inner">
+        <div>
+          <h3 class="cta-title">導入可否を、まず数字で確認しませんか。</h3>
+          <p class="cta-copy">スマホでもそのまま使えます。シミュレーション後は無料相談・資料請求へ進めます。</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-gold" href="#simulator">シミュレーションする</a>
+          <a class="btn btn-line" href="#contact">無料相談</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const UNIT_PRICE = 10000000;
+    const MONTHLY_INSTALLMENT_PER_UNIT = 183300;
+    const INSTALLMENT_MONTHS = 60;
+
+    const unitButtons = document.querySelectorAll('.choice-btn');
+    const unitsInput = document.getElementById('unitsInput');
+
+    unitButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        unitButtons.forEach((b) => b.classList.remove('active'));
+        button.classList.add('active');
+        unitsInput.value = button.dataset.units;
+        calculate();
+      });
+    });
+
+    document.getElementById('profitInput').addEventListener('input', calculate);
+    document.getElementById('taxRateInput').addEventListener('input', calculate);
+    document.getElementById('purchaseMethod').addEventListener('change', calculate);
+
+    function formatYen(value) {
+      return '¥' + Math.round(value).toLocaleString('ja-JP');
+    }
+
+    function formatYears(value) {
+      if (!isFinite(value) || value <= 0) return '—';
+      return value.toFixed(1) + '年';
+    }
+
+    function getMethodLabel(method) {
+      if (method === 'cash') return '現金';
+      if (method === 'installment') return '割賦';
+      return '未定';
+    }
+
+    function getRecommendation(units, method, annualProfit, paybackYears) {
+      if (method === 'cash') {
+        return {
+          title: `おすすめ：${units}台 現金プラン`,
+          copy: '節税効果を最大化しやすく、即時償却を重視したいケースに向いています。資金余力がある場合に強い提案です。',
+          reasons: [
+            '節税最大化を重視しやすい',
+            '月額支払いが発生しない',
+            '資金を先に投下して早期回収を狙いやすい'
+          ],
+          comment: '節税重視の提案軸と相性が良いです。'
+        };
+      }
+
+      if (method === 'installment') {
+        return {
+          title: `おすすめ：${units}台 割賦プラン`,
+          copy: '頭金0円で資金を温存しながら導入しやすい構成です。収益で返済を進めたい場合に向いています。',
+          reasons: [
+            '初期手出しを抑えやすい',
+            '資金温存を重視できる',
+            '収益を見ながら返済設計しやすい'
+          ],
+          comment: '資金を温存しつつ導入したい層に向いています。'
+        };
+      }
+
+      if (units === 3) {
+        return {
+          title: 'おすすめ：3台プラン',
+          copy: '節税効率・導入ハードル・年間収益のバランスが良く、最初の提案としてもっとも使いやすい構成です。',
+          reasons: [
+            'バランス・節税効率が最適',
+            '導入のしやすさと収益期待の両立',
+            '現金・割賦どちらにも展開しやすい'
+          ],
+          comment: paybackYears <= 4 ? '節税と収益の両立がしやすい構成です。' : '収益改善余地を見ながら提案しやすい構成です。'
+        };
+      }
+
+      if (units <= 1) {
+        return {
+          title: 'おすすめ：1台お試しプラン',
+          copy: 'まずは小さく始めたい場合に向く構成です。実績確認や社内稟議の入り口として使いやすいです。',
+          reasons: [
+            '初期判断をしやすい',
+            '導入ハードルが比較的低い',
+            'テスト導入に向いている'
+          ],
+          comment: '慎重な導入判断をしたいケースに向いています。'
+        };
+      }
+
+      return {
+        title: `おすすめ：${units}台 収益重視プラン`,
+        copy: '収益規模と節税額を大きく取りにいく構成です。拡大前提の提案や複数拠点運用と相性があります。',
+        reasons: [
+          '節税額が大きくなりやすい',
+          '収益拡大のインパクトが大きい',
+          '事業としてのスケール感を出しやすい'
+        ],
+        comment: annualProfit >= 10000000 ? '収益拡大型の提案として魅力があります。' : '前向きな投資判断向けの構成です。'
+      };
+    }
+
+    function calculate() {
+      const annualProfit = Number(document.getElementById('profitInput').value) || 0;
+      const taxRate = (Number(document.getElementById('taxRateInput').value) || 0) / 100;
+      const units = Number(unitsInput.value) || 3;
+      const method = document.getElementById('purchaseMethod').value;
+
+      const equipmentCost = units * UNIT_PRICE;
+      const taxSaving = equipmentCost * taxRate;
+      const cashTotal = equipmentCost;
+      const installmentMonthly = units * MONTHLY_INSTALLMENT_PER_UNIT;
+      const installmentTotal = installmentMonthly * INSTALLMENT_MONTHS;
+      const hybridTotal = cashTotal * 0.5 + installmentTotal * 0.5;
+      const hybridMonthly = installmentMonthly * 0.5;
+
+      let selectedTotal = cashTotal;
+      if (method === 'installment') selectedTotal = installmentTotal;
+      if (method === 'undecided') selectedTotal = cashTotal;
+
+      const realBurden = selectedTotal - taxSaving;
+      const paybackYears = annualProfit > 0 ? realBurden / annualProfit : 0;
+
+      document.getElementById('taxSavingValue').textContent = formatYen(taxSaving);
+      document.getElementById('realBurdenValue').textContent = formatYen(realBurden);
+      document.getElementById('annualProfitValue').textContent = formatYen(annualProfit);
+      document.getElementById('paybackValue').textContent = formatYears(paybackYears);
+
+      document.getElementById('cashInitial').textContent = formatYen(cashTotal);
+      document.getElementById('installmentInitial').textContent = '¥0';
+      document.getElementById('hybridInitial').textContent = formatYen(cashTotal * 0.5);
+
+      document.getElementById('installmentMonthly').textContent = formatYen(installmentMonthly);
+      document.getElementById('hybridMonthly').textContent = formatYen(hybridMonthly);
+
+      document.getElementById('cashTotal').textContent = formatYen(cashTotal);
+      document.getElementById('installmentTotal').textContent = formatYen(installmentTotal);
+      document.getElementById('hybridTotal').textContent = formatYen(hybridTotal);
+
+      document.getElementById('cashSaving').textContent = formatYen(taxSaving);
+      document.getElementById('installmentSaving').textContent = formatYen(taxSaving);
+      document.getElementById('hybridSaving').textContent = formatYen(taxSaving);
+
+      document.getElementById('cashBurden').textContent = formatYen(cashTotal - taxSaving);
+      document.getElementById('installmentBurden').textContent = formatYen(installmentTotal - taxSaving);
+      document.getElementById('hybridBurden').textContent = formatYen(hybridTotal - taxSaving);
+
+      document.getElementById('cashProfit').textContent = formatYen(annualProfit) + ' / 年';
+      document.getElementById('installmentProfit').textContent = formatYen(annualProfit) + ' / 年';
+      document.getElementById('hybridProfit').textContent = formatYen(annualProfit) + ' / 年';
+
+      const rec = getRecommendation(units, method, annualProfit, paybackYears);
+      document.getElementById('recommendedPlanTitle').textContent = rec.title;
+      document.getElementById('recommendedPlanCopy').textContent = rec.copy;
+      document.getElementById('recommendReason1').textContent = rec.reasons[0];
+      document.getElementById('recommendReason2').textContent = rec.reasons[1];
+      document.getElementById('recommendReason3').textContent = rec.reasons[2];
+      document.getElementById('recommendComment').textContent = rec.comment;
+
+      document.getElementById('currentMethodLabel').textContent = getMethodLabel(method);
+      document.getElementById('currentUnitsLabel').textContent = units + '台';
+      document.getElementById('currentProfitLabel').textContent = formatYen(annualProfit);
+    }
+
+    function resetSimulation() {
+      document.getElementById('profitInput').value = 6912000;
+      document.getElementById('taxRateInput').value = 30;
+      document.getElementById('purchaseMethod').value = 'undecided';
+      unitsInput.value = 3;
+      unitButtons.forEach((button) => button.classList.remove('active'));
+      document.querySelector('.choice-btn[data-units="3"]').classList.add('active');
+      calculate();
+    }
+
+    calculate();
+  </script>
+</body>
+</html>
