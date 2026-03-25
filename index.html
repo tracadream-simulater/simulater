@@ -20,6 +20,10 @@
       --radius-lg: 18px;
       --radius-md: 14px;
       --maxw: 1180px;
+      --slider-height: 280px;
+      --slider-gap: 16px;
+      --slider-item-width: 420px;
+      --slider-duration: 28s;
     }
 
     * { box-sizing: border-box; }
@@ -47,8 +51,58 @@
       padding-bottom: 28px;
     }
 
+    .slider-section {
+      padding: 26px 0 10px;
+    }
+
+    .slider-shell {
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(4px);
+      box-shadow: var(--shadow);
+      padding: 12px 0;
+    }
+
+    .slider-track {
+      display: flex;
+      width: max-content;
+      gap: var(--slider-gap);
+      animation: marquee var(--slider-duration) linear infinite;
+      padding-left: var(--slider-gap);
+    }
+
+    .slider-shell:hover .slider-track {
+      animation-play-state: paused;
+    }
+
+    .slider-item {
+      flex: 0 0 var(--slider-item-width);
+      width: var(--slider-item-width);
+      height: var(--slider-height);
+      overflow: hidden;
+      border-radius: 18px;
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .slider-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(-1 * ((var(--slider-item-width) + var(--slider-gap)) * 5))); }
+    }
+
     .hero {
-      padding: 32px 0 22px;
+      padding: 18px 0 22px;
     }
 
     .hero-box {
@@ -444,6 +498,25 @@
     }
 
     @media (max-width: 920px) {
+      .container {
+        width: min(var(--maxw), calc(100% - 20px));
+      }
+
+      .slider-section {
+        padding-top: 18px;
+      }
+
+      .slider-item {
+        width: 280px;
+        flex-basis: 280px;
+        height: 190px;
+      }
+
+      @keyframes marquee {
+        from { transform: translateX(0); }
+        to { transform: translateX(calc(-1 * ((280px + var(--slider-gap)) * 5))); }
+      }
+
       .input-grid,
       .summary-grid,
       .recommend-box,
@@ -463,6 +536,24 @@
 </head>
 <body>
   <div class="container">
+    <section class="slider-section" aria-label="店舗写真スライダー">
+      <div class="slider-shell">
+        <div class="slider-track">
+          <div class="slider-item"><img src="assets/photo01.jpg" alt="トレカドリーム 店舗写真1" /></div>
+          <div class="slider-item"><img src="assets/photo02.jpg" alt="トレカドリーム 店舗写真2" /></div>
+          <div class="slider-item"><img src="assets/photo03.jpg" alt="トレカドリーム 店舗写真3" /></div>
+          <div class="slider-item"><img src="assets/photo04.jpg" alt="トレカドリーム 店舗写真4" /></div>
+          <div class="slider-item"><img src="assets/photo05.jpg" alt="トレカドリーム 店舗写真5" /></div>
+
+          <div class="slider-item"><img src="assets/photo01.jpg" alt="トレカドリーム 店舗写真1" /></div>
+          <div class="slider-item"><img src="assets/photo02.jpg" alt="トレカドリーム 店舗写真2" /></div>
+          <div class="slider-item"><img src="assets/photo03.jpg" alt="トレカドリーム 店舗写真3" /></div>
+          <div class="slider-item"><img src="assets/photo04.jpg" alt="トレカドリーム 店舗写真4" /></div>
+          <div class="slider-item"><img src="assets/photo05.jpg" alt="トレカドリーム 店舗写真5" /></div>
+        </div>
+      </div>
+    </section>
+
     <header class="hero">
       <div class="hero-box">
         <h1>トレカドリーム 節税シミュレーション</h1>
@@ -591,7 +682,7 @@
           </p>
           <div class="recommend-list">
             <div class="recommend-item" id="recommendReason1">バランス・節税効率が最適</div>
-            <div class="recommend-item" id="recommendReason2">導入ハードルと希望節税額の両立がしやすい</div>
+            <div class="recommend-item" id="recommendReason2">導入ハードルと希望節税額への近さが両立しやすい</div>
             <div class="recommend-item" id="recommendReason3">現金・割賦どちらでも提案しやすい</div>
           </div>
         </div>
