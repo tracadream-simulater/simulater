@@ -20,7 +20,7 @@
       --radius-lg: 18px;
       --radius-md: 14px;
       --maxw: 1180px;
-      --slider-height: 280px;
+      --slider-height: 220px;
       --slider-gap: 16px;
       --slider-item-width: 420px;
       --slider-duration: 28s;
@@ -507,14 +507,14 @@
       }
 
       .slider-item {
-        width: 280px;
-        flex-basis: 280px;
+        width: 220px;
+        flex-basis: 220px;
         height: 190px;
       }
 
       @keyframes marquee {
         from { transform: translateX(0); }
-        to { transform: translateX(calc(-1 * ((280px + var(--slider-gap)) * 5))); }
+        to { transform: translateX(calc(-1 * ((220px + var(--slider-gap)) * 5))); }
       }
 
       .input-grid,
