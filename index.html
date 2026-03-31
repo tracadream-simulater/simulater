@@ -128,6 +128,7 @@
     }
 
     h1 {
+      white-space: nowrap;
       font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
       font-size: clamp(28px, 6vw, 48px);
       line-height: 1.15;
@@ -161,7 +162,7 @@
       font-weight: 800;
       text-decoration: none;
       display: inline-flex;
-      align-items: center;
+      align-items: start;
       justify-content: center;
       transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
     }
@@ -486,7 +487,7 @@
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 16px;
-      align-items: center;
+      align-items: start;
     }
 
     .cta-title {
@@ -533,7 +534,43 @@
       background: #ffffff;
     }
 
+
+    .hero-box-inner {
+      display: grid;
+      grid-template-columns: 1.3fr 280px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .hero-left {
+      min-width: 0;
+    }
+
+    .hero-video {
+      margin-top: 70px;
+      min-width: 0;
+    }
+
+    .hero-video-label {
+      margin: 0 0 10px;
+      font-size: 14px;
+      font-weight: 800;
+      color: #111111;
+    }
+
+    .hero-video iframe {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: 180px;
+      border: 0;
+      border-radius: 18px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+      background: #000000;
+    }
+
     @media (max-width: 920px) {
+      h1 { white-space: normal; }
       .container {
         width: 100%;
         max-width: 1180px;
@@ -556,12 +593,17 @@
         to { transform: translateX(calc(-1 * ((220px + var(--slider-gap)) * 5))); }
       }
 
+      .hero-box-inner,
       .input-grid,
       .summary-grid,
       .recommend-box,
       .cta-inner,
       .sub-grid {
         grid-template-columns: 1fr;
+      }
+
+      .hero-video iframe {
+        min-height: 200px;
       }
 
       .cta-actions { justify-content: stretch; }
@@ -746,14 +788,29 @@
 
     <header class="hero">
       <div class="hero-box">
-        <h1>トレカドリーム 節税シミュレーション</h1>
-        <p class="hero-copy">
-          トレカドリーム購入台数に応じた節税シミュレーションツールです。<br>
-          節税希望額を入力するだけで、節税額や購入方法に応じた還元率等をご確認いただけます。
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-gold" href="#simulator">シミュレーションする</a>
-          <a class="btn btn-line" href="#contact">無料相談へ進む</a>
+        <div class="hero-box-inner">
+          <div class="hero-left">
+            <h1>トレカドリーム 節税シミュレーション</h1>
+            <p class="hero-copy">
+              トレカドリーム購入台数に応じた節税シミュレーションツールです。<br>
+              節税希望額を入力するだけで、節税額や購入方法に応じた還元率等をご確認いただけます。
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-gold" href="#simulator">シミュレーションする</a>
+              <a class="btn btn-line" href="#contact">無料相談へ進む</a>
+            </div>
+          </div>
+          <div class="hero-video">
+            
+            <iframe
+              src="https://www.youtube.com/embed/Snru5edAnyI"
+              title="トレカドリーム 節税シミュレーション 使い方動画"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </div>
     </header>
