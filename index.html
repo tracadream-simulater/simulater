@@ -537,13 +537,36 @@
 
     .hero-box-inner {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 1.3fr 280px;
       gap: 28px;
       align-items: start;
     }
 
     .hero-left {
       min-width: 0;
+    }
+
+    .hero-video {
+      margin-top: 70px;
+      min-width: 0;
+    }
+
+    .hero-video-label {
+      margin: 0 0 10px;
+      font-size: 14px;
+      font-weight: 800;
+      color: #111111;
+    }
+
+    .hero-video iframe {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: 180px;
+      border: 0;
+      border-radius: 18px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+      background: #000000;
     }
 
     @media (max-width: 920px) {
@@ -577,6 +600,10 @@
       .cta-inner,
       .sub-grid {
         grid-template-columns: 1fr;
+      }
+
+      .hero-video iframe {
+        min-height: 200px;
       }
 
       .cta-actions { justify-content: stretch; }
@@ -772,6 +799,17 @@
               <a class="btn btn-gold" href="#simulator">シミュレーションする</a>
               <a class="btn btn-line" href="#contact">無料相談へ進む</a>
             </div>
+          </div>
+          <div class="hero-video">
+            
+            <iframe
+              src="https://www.youtube.com/embed/Snru5edAnyI"
+              title="トレカドリーム 節税シミュレーション 使い方動画"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
+            </iframe>
           </div>
         </div>
       </div>
