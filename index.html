@@ -378,7 +378,6 @@
       color: #222222;
     }
 
-
     .rate-gold {
       color: var(--gold-3);
       font-weight: 900;
@@ -534,35 +533,38 @@
       background: #ffffff;
     }
 
-
     .hero-box-inner {
-      display: grid;
-      grid-template-columns: 1.3fr 280px;
-      gap: 28px;
-      align-items: start;
+      display: block;
     }
 
     .hero-left {
       min-width: 0;
     }
 
-    .hero-video {
-      margin-top: 70px;
+    .video-section {
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+      backdrop-filter: blur(2px);
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .video-card {
       min-width: 0;
     }
 
-    .hero-video-label {
-      margin: 0 0 10px;
-      font-size: 14px;
-      font-weight: 800;
-      color: #111111;
-    }
-
-    .hero-video iframe {
+    .video-card iframe {
       display: block;
       width: 100%;
       aspect-ratio: 16 / 9;
-      height: 180px;
       border: 0;
       border-radius: 18px;
       box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
@@ -593,17 +595,13 @@
         to { transform: translateX(calc(-1 * ((220px + var(--slider-gap)) * 5))); }
       }
 
-      .hero-box-inner,
       .input-grid,
       .summary-grid,
       .recommend-box,
       .cta-inner,
-      .sub-grid {
+      .sub-grid,
+      .video-grid {
         grid-template-columns: 1fr;
-      }
-
-      .hero-video iframe {
-        min-height: 200px;
       }
 
       .cta-actions { justify-content: stretch; }
@@ -699,7 +697,6 @@
       line-height: 1.7;
     }
 
-
     .plan-subtext {
       display: block;
       margin-top: 6px;
@@ -710,7 +707,6 @@
       white-space: normal;
     }
 
-  
 .gold-strong {
   color: #8a6f00; /* darker gold */
   font-weight: 900;
@@ -722,7 +718,6 @@
   margin: 0;
   line-height: 1;
 }
-
 
 /* column coloring */
 .compare-wrap tbody tr td:nth-child(3),
@@ -745,24 +740,77 @@
   background-color: inherit !important;
 }
 
-
 /* keep gold for specific rows */
 .compare-wrap tbody tr.same-value-row td,
 .compare-wrap tbody tr.emphasis-row td {
   background-color: rgba(199, 155, 75, 0.10) !important;
 }
 
-
 .gold-strong {
   color: #8a6f00;
   font-weight: 900;
 }
 
-
 #taxEffectMerged {
   color: #8a6f00 !important;
   font-weight: 900 !important;
 }
+
+    .video-section {
+      margin-top: 22px;
+      padding: 24px 26px;
+    }
+
+    .video-box {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      align-items: start;
+    }
+
+    .video-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .video-title {
+      width: 100%;
+      margin: 0 0 12px;
+      font-size: 20px;
+      font-weight: 800;
+      color: #111111;
+      text-align: center;
+    }
+
+    .video-item iframe {
+      display: block;
+      width: 60%;
+      min-width: 260px;
+      aspect-ratio: 16 / 9;
+      height: auto;
+      border: 0;
+      border-radius: 18px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+      background: #000000;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 920px) {
+      .video-box {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .video-item iframe {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .video-title {
+        font-size: 18px;
+      }
+    }
 
 </style>
 </head>
@@ -793,29 +841,44 @@
             <h1>トレカドリーム 節税シミュレーション</h1>
             <p class="hero-copy">
               トレカドリーム購入台数に応じた節税シミュレーションツールです。<br>
-              節税希望額を入力するだけで、節税額や購入方法に応じた還元率等をご確認いただけます。
+              節税希望額を入力するだけで、節税額や還元率等をご確認いただけます。
             </p>
             <div class="hero-actions">
               <a class="btn btn-gold" href="#simulator">シミュレーションする</a>
               <a class="btn btn-line" href="#contact">無料相談へ進む</a>
             </div>
           </div>
-          <div class="hero-video">
-            
-            <iframe
-              src="https://www.youtube.com/embed/Snru5edAnyI"
-              title="トレカドリーム 節税シミュレーション 使い方動画"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen>
-            </iframe>
-          </div>
         </div>
       </div>
-    </header>
 
-    <section class="section" id="simulator">
+      <section class="section video-section" aria-label="動画案内">
+      <div class="video-box">
+        <div class="video-item">
+          <div class="video-title">シミュレーションのやり方</div>
+          <iframe
+            src="https://www.youtube.com/embed/Snru5edAnyI"
+            title="シミュレーションのやり方"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-item">
+          <div class="video-title">トレカドリームとは</div>
+          <iframe
+            src="https://www.youtube.com/embed/OKFaqAyxsbk"
+            title="トレカドリームとは"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+<section class="section" id="simulator">
       <h2>入力</h2>
       <p class="section-copy">節税希望額を1,000万円単位で入力します。</p>
 
@@ -844,16 +907,6 @@
           </div>
           <small>節税希望額に応じて自動で反映されます。</small>
         </div>
-
-        <div class="field">
-          <label for="purchaseMethod">購入方法</label>
-          <select id="purchaseMethod">
-            <option value="undecided">未定</option>
-            <option value="cash">現金</option>
-            <option value="installment">割賦</option>
-          </select>
-          <small>ご希望の購入方法をご選択ください。</small>
-        </div>
       </div>
 
       <div class="actions-row">
@@ -876,9 +929,9 @@
           <div class="desc">税込支払額 - 節税額</div>
         </div>
         <div class="summary-card">
-          <div class="kicker">毎月の自販機収益</div>
+          <div class="kicker">想定自販機利益</div>
           <div class="num" id="monthlyMachineProfitValue">¥192,000</div>
-          <div class="desc">最低保証金額の為、この金額を下回ることはありません。</div>
+          <div class="desc"></div>
         </div>
       </div>
     </section>
@@ -902,7 +955,6 @@
         </div>
       </div>
 
-      
       <div class="compare-wrap">
         <table>
           <thead>
@@ -984,7 +1036,6 @@
         </table>
       </div>
 
-
       <p class="notice">
         ※ 1台あたり総投資額は11,000,000円、税抜投資額は10,000,000円です。<br>
         ※ 割賦会社（A社）の支払いには23.4%の分割払手数料が含まれています。（上記比較表は手数料込みの金額です。）
@@ -1005,8 +1056,7 @@
           marginwidth="0"
         >読み込んでいます…</iframe>
       </div>
-
-      <p class="notice">
+<p class="notice">
         ※ 本サイトの数値は概算です。詳細条件により変動します。<br>
         ※ 詳細は個別相談にてご案内します。<br>
         ※ 税務は必ず税理士確認が必要です。
@@ -1027,7 +1077,6 @@
     </div>
   </div>
 
-  
   <script>
     const UNIT_PRICE_TOTAL = 11000000;
     const UNIT_PRICE_TAX_EXCLUDED = 10000000;
@@ -1048,7 +1097,6 @@
 
     const watchedIds = [
       'desiredSavingUnitInput',
-      'purchaseMethod',
       'hybridCashUnits'
     ];
 
@@ -1246,7 +1294,6 @@
     function resetSimulation() {
       document.getElementById('desiredSavingUnitInput').value = '';
       document.getElementById('unitsInput').value = '';
-      document.getElementById('purchaseMethod').value = 'undecided';
       document.getElementById('hybridCashUnits').value = '';
       document.getElementById('hybridInstallmentUnitsDisplay').value = '';
       renderEmptyState();
