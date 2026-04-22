@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>トレカドリーム 節税シミュレーション</title>
-  <meta name="description" content="税金で消える資金を、節税＋資産＋収益へ。トレカドリームの節税シミュレーションサイトです。" />
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>トレカドリーム 節税シミュレーション</title>
+<meta content="税金で消える資金を、節税＋資産＋収益へ。トレカドリームの節税シミュレーションサイトです。" name="description"/>
+<style>
     :root {
       --panel: rgba(255, 255, 255, 0.94);
       --panel-strong: rgba(255, 255, 255, 0.98);
@@ -485,8 +486,8 @@
     .cta-inner {
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 16px;
-      align-items: start;
+      gap: 12px;
+      align-items: center;
     }
 
     .cta-title {
@@ -604,11 +605,28 @@
         grid-template-columns: 1fr;
       }
 
+      .summary-grid.summary-grid-4,
+      .trust-points {
+        grid-template-columns: 1fr;
+      }
+
       .cta-actions { justify-content: stretch; }
-      .cta-actions .btn { width: 100%; }
-      .summary-card .num { font-size: 30px; }
-      .section { padding: 18px; }
-      .hero-box { padding: 22px 18px; }
+      .cta-actions .btn { width: 100%; padding: 12px 16px; font-size: 13px; }
+      .summary-card .num { font-size: 26px; }
+      .section { padding: 14px; border-radius: 20px; }
+      .hero-box { padding: 18px 14px; border-radius: 24px; }
+      .hero-copy, .section-copy, .comparison-note, .notice { font-size: 13px; line-height: 1.7; }
+      .section h2 { font-size: 24px; }
+      .video-section { padding: 16px 14px; }
+      .video-title { font-size: 16px; }
+      .slider-shell { border-radius: 18px; }
+      .compare-wrap { border-radius: 14px; }
+      table { min-width: 860px; }
+      th, td { padding: 12px 10px; font-size: 12px; }
+      .plan-subtext { font-size: 11px; }
+      .plan-label { font-size: 10px; padding: 4px 8px; }
+      .cta-box { bottom: 8px; padding: 12px; border-radius: 16px; }
+      .cta-title { font-size: 16px; margin-bottom: 0; }
       body { background-attachment: scroll; }
     }
 
@@ -720,18 +738,18 @@
 }
 
 /* column coloring */
-.compare-wrap tbody tr td:nth-child(3),
-.compare-wrap thead tr th:nth-child(3),
-.compare-wrap tbody tr td:nth-child(5),
-.compare-wrap thead tr th:nth-child(5) {
-  background-color: #eaf4ff; /* light blue */
-}
-
 .compare-wrap tbody tr td:nth-child(4),
 .compare-wrap thead tr th:nth-child(4),
 .compare-wrap tbody tr td:nth-child(6),
 .compare-wrap thead tr th:nth-child(6) {
-  background-color: #f5efe6; /* light red */
+  background-color: #eaf4ff; /* light blue */
+}
+
+.compare-wrap tbody tr td:nth-child(5),
+.compare-wrap thead tr th:nth-child(5),
+.compare-wrap tbody tr td:nth-child(7),
+.compare-wrap thead tr th:nth-child(7) {
+  background-color: #f5efe6; /* light beige */
 }
 
 /* exclude specific rows */
@@ -755,6 +773,105 @@
   color: #8a6f00 !important;
   font-weight: 900 !important;
 }
+
+    .summary-grid.summary-grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .plan-label {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #5f461b;
+      background: rgba(199, 155, 75, 0.16);
+      border: 1px solid rgba(199, 155, 75, 0.28);
+    }
+
+    .compare-wrap thead th .plan-label {
+      display: inline-block;
+    }
+
+    .compare-wrap tbody tr td:nth-child(2),
+    .compare-wrap thead tr th:nth-child(2) {
+      background-color: #f3f3f3;
+    }
+
+    .compare-wrap tbody tr td:nth-child(3),
+    .compare-wrap thead tr th:nth-child(3) {
+      background-color: #fff8eb;
+    }
+
+    .trust-points {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .trust-point {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(199, 155, 75, 0.22);
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,248,235,0.96));
+      padding: 18px 18px 18px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.05);
+    }
+
+    .trust-point::after {
+      content: "";
+      position: absolute;
+      top: -24px;
+      right: -24px;
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(199, 155, 75, 0.18), transparent 70%);
+      pointer-events: none;
+    }
+
+    .trust-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      background: linear-gradient(135deg, rgba(199, 155, 75, 0.22), rgba(255,255,255,0.95));
+      border: 1px solid rgba(199, 155, 75, 0.22);
+      flex: 0 0 52px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .trust-copy {
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+
+    .trust-text {
+      font-size: 16px;
+      font-weight: 900;
+      color: #222222;
+      line-height: 1.45;
+      letter-spacing: 0.01em;
+    }
+
+    .trust-subtext {
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
 
     .video-section {
       margin-top: 22px;
@@ -815,280 +932,299 @@
 </style>
 </head>
 <body>
-  <div class="container">
-    <section class="slider-section" aria-label="店舗写真スライダー">
-      <div class="slider-shell">
-        <div class="slider-track">
-          <div class="slider-item"><img src="assets/photo01.jpg" alt="トレカドリーム 店舗写真1" /></div>
-          <div class="slider-item"><img src="assets/photo02.jpg" alt="トレカドリーム 店舗写真2" /></div>
-          <div class="slider-item"><img src="assets/photo03.jpg" alt="トレカドリーム 店舗写真3" /></div>
-          <div class="slider-item"><img src="assets/photo04.jpg" alt="トレカドリーム 店舗写真4" /></div>
-          <div class="slider-item"><img src="assets/photo05.jpg" alt="トレカドリーム 店舗写真5" /></div>
-
-          <div class="slider-item"><img src="assets/photo01.jpg" alt="トレカドリーム 店舗写真1" /></div>
-          <div class="slider-item"><img src="assets/photo02.jpg" alt="トレカドリーム 店舗写真2" /></div>
-          <div class="slider-item"><img src="assets/photo03.jpg" alt="トレカドリーム 店舗写真3" /></div>
-          <div class="slider-item"><img src="assets/photo04.jpg" alt="トレカドリーム 店舗写真4" /></div>
-          <div class="slider-item"><img src="assets/photo05.jpg" alt="トレカドリーム 店舗写真5" /></div>
-        </div>
-      </div>
-    </section>
-
-    <header class="hero">
-      <div class="hero-box">
-        <div class="hero-box-inner">
-          <div class="hero-left">
-            <h1>トレカドリーム 節税シミュレーション</h1>
-            <p class="hero-copy">
-              トレカドリーム購入台数に応じた節税シミュレーションツールです。<br>
-              節税希望額を入力するだけで、節税額や還元率等をご確認いただけます。
+<div class="container">
+<section aria-label="店舗写真スライダー" class="slider-section">
+<div class="slider-shell">
+<div class="slider-track">
+<div class="slider-item"><img alt="トレカドリーム 店舗写真1" src="assets/photo01.jpg"/></div>
+<div class="slider-item"><img alt="トレカドリーム 店舗写真2" src="assets/photo02.jpg"/></div>
+<div class="slider-item"><img alt="トレカドリーム 店舗写真3" src="assets/photo03.jpg"/></div>
+<div class="slider-item"><img alt="トレカドリーム 店舗写真4" src="assets/photo04.jpg"/></div>
+<div class="slider-item"><img alt="トレカドリーム 店舗写真5" src="assets/photo05.jpg"/></div>
+<div class="slider-item"><img alt="トレカドリーム 店舗写真1" src="assets/photo01.jpg"/></div>
+<div class="slider-item"><img alt="トレカドリーム 店舗写真2" src="assets/photo02.jpg"/></div>
+<div class="slider-item"><img alt="トレカドリーム 店舗写真3" src="assets/photo03.jpg"/></div>
+<div class="slider-item"><img alt="トレカドリーム 店舗写真4" src="assets/photo04.jpg"/></div>
+<div class="slider-item"><img alt="トレカドリーム 店舗写真5" src="assets/photo05.jpg"/></div>
+</div>
+</div>
+</section>
+<header class="hero">
+<div class="hero-box">
+<div class="hero-box-inner">
+<div class="hero-left">
+<h1>トレカドリーム 節税シミュレーション</h1>
+<p class="hero-copy">
+              トレカドリーム購入台数に応じた節税シミュレーションツールです。<br/>
+              当期利益額と台数を入力するだけで、想定節税額や実質負担額、比較表をご確認いただけます。
             </p>
-            <div class="hero-actions">
-              <a class="btn btn-gold" href="#simulator">シミュレーションする</a>
-              <a class="btn btn-line" href="#contact">無料相談へ進む</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <section class="section video-section" aria-label="動画案内">
-      <div class="video-box">
-        <div class="video-item">
-          <div class="video-title">当サイトの使い方</div>
-          <iframe
-            src="https://www.youtube.com/embed/kKm66HlrKnc"
-            title="シミュレーションのやり方"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen>
-          </iframe>
-        </div>
-        <div class="video-item">
-          <div class="video-title">トレカドリームとは</div>
-          <iframe
-            src="https://www.youtube.com/embed/Snru5edAnyI"
-            title="トレカドリームとは"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-    </section>
-
+<div class="hero-actions">
+<a class="btn btn-gold" href="#simulator">シミュレーションする</a>
+<a class="btn btn-line" href="#contact">無料相談へ進む</a>
+</div>
+</div>
+</div>
+</div>
+<section aria-label="動画案内" class="section video-section">
+<div class="video-box">
+<div class="video-item">
+<div class="video-title">当サイトの使い方</div>
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/kKm66HlrKnc" title="シミュレーションのやり方">
+</iframe>
+</div>
+<div class="video-item">
+<div class="video-title">トレカドリームとは</div>
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/Snru5edAnyI" title="トレカドリームとは">
+</iframe>
+</div>
+</div>
+</section>
 <section class="section" id="simulator">
-      <h2>入力</h2>
-      <p class="section-copy">節税希望額を1,000万円単位で入力します。</p>
-
-      <div class="input-grid">
-        <div class="field">
-          <label for="desiredSavingUnitInput">節税希望額（1,000万円単位）</label>
-          <div class="input-wrap">
-            <input id="desiredSavingUnitInput" class="with-suffix" type="number" min="0" step="1" value="" placeholder="例：2" />
-            <span class="suffix">×1,000万円</span>
-          </div>
-          <small>例：2 = 2,000万円 / 10 = 1億円</small>
-        </div>
-
-        <div class="field">
-          <label for="taxRateFixed">税率</label>
-          <div class="input-wrap">
-            <input id="taxRateFixed" type="text" value="35%" readonly />
-          </div>
-          <small>税率は固定です。</small>
-        </div>
-
-        <div class="field">
-          <label for="unitsInput">台数</label>
-          <div class="input-wrap">
-            <input id="unitsInput" type="number" min="0" step="1" value="" placeholder="自動反映" readonly />
-          </div>
-          <small>節税希望額に応じて自動で反映されます。</small>
-        </div>
-      </div>
-
-      <div class="actions-row">
-        <button class="btn btn-gold" type="button" onclick="calculate(true)">結果を表示する</button>
-        <button class="btn btn-line" type="button" onclick="resetSimulation()">クリア</button>
-      </div>
-    </section>
-
-    <section class="section summary-section" id="result-summary">
-      <h2>シミュレーション結果</h2>
-      <div class="summary-grid">
-        <div class="summary-card featured emphasis">
-          <div class="kicker">節税額</div>
-          <div class="num" id="taxSavingValue">¥10,500,000</div>
-          <div class="desc">税抜支払額 × 35%</div>
-        </div>
-        <div class="summary-card">
-          <div class="kicker">実質負担額</div>
-          <div class="num" id="realBurdenValue">¥22,500,000</div>
-          <div class="desc">税込支払額 - 節税額</div>
-        </div>
-        <div class="summary-card">
-          <div class="kicker">想定自販機利益</div>
-          <div class="num" id="monthlyMachineProfitValue">¥192,000</div>
-          <div class="desc"></div>
-        </div>
-      </div>
-    </section>
+<h2>入力</h2>
+<p class="section-copy">当期利益額と購入予定台数を入力してください。</p>
+<div class="input-grid">
+<div class="field">
+<label for="desiredSavingUnitInput">当期利益額（1,000万円単位）</label>
+<div class="input-wrap">
+<input class="with-suffix" id="desiredSavingUnitInput" min="0" placeholder="例：2" step="1" type="number" value=""/>
+<span class="suffix">×1,000万円</span>
+</div>
+<small>例：2 = 2,000万円 / 10 = 1億円</small>
+</div>
+<div class="field">
+<label for="taxRateFixed">税率</label>
+<div class="input-wrap">
+<input id="taxRateFixed" readonly="" type="text" value="35%"/>
+</div>
+<small>税率は固定です。</small>
+</div>
+<div class="field">
+<label for="unitsInput">台数</label>
+<div class="input-wrap">
+<input id="unitsInput" min="0" placeholder="例：2" step="1" type="number" value=""/>
+</div>
+<small>購入予定台数を入力してください。</small>
+</div>
+</div>
+<div class="actions-row">
+<button class="btn btn-gold" onclick="calculate(true)" type="button">結果を表示する</button>
+<button class="btn btn-line" onclick="resetSimulation()" type="button">クリア</button>
+</div>
+</section>
+<section class="section summary-section" id="result-summary">
+<h2>シミュレーション結果</h2>
+<div class="summary-grid summary-grid-4">
+<div class="summary-card featured emphasis">
+<div class="kicker">想定節税額</div>
+<div class="num" id="taxSavingValue">—</div>
+<div class="desc">min（当期利益額, 税抜投資額）× 35%</div>
+</div>
+<div class="summary-card">
+<div class="kicker">実質負担額</div>
+<div class="num" id="realBurdenValue">—</div>
+<div class="desc">税込支払額 - 想定節税額</div>
+</div>
+<div class="summary-card">
+<div class="kicker">想定年間収益</div>
+<div class="num" id="monthlyMachineProfitValue">—</div>
+<div class="desc">台数 × 192,000円/月 × 12ヵ月</div>
+</div>
+<div class="summary-card">
+<div class="kicker">回収目安</div>
+<div class="num" id="paybackMonthsValue">—</div>
+<div class="desc">実質負担額 ÷（192,000円/月 × 台数）</div>
+</div>
+</div>
+</section>
 <section class="section">
-      <h2>プラン比較</h2>
-      <p class="section-copy">現金購入と弊社が提携している割賦会社（S社）・割賦会社（A社）を使用した場合の購入比較です。</p>
-      <p class="comparison-note">※ 当社での購入方法での比較となります。<br>※ ハイブリッドは、一部を現金・一部を割賦で購入した場合の比較です。</p>
-
-      <div class="compare-setting-grid">
-        <div class="mini-card">
-          <h4>ハイブリッド配分</h4>
-          <div class="field">
-            <label for="hybridCashUnits">現金台数</label>
-            <input id="hybridCashUnits" type="number" min="0" step="1" value="1" />
-            <small></small>
-          </div>
-          <div class="field">
-            <label for="hybridInstallmentUnitsDisplay">割賦台数</label>
-            <input id="hybridInstallmentUnitsDisplay" type="number" value="2" readonly />
-          </div>
-        </div>
-      </div>
-
-      <div class="compare-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>比較項目</th>
-              <th style="font-size:15px;">現金<span class="plan-subtext" id="cashPlanText">●台全て現金購入</span></th>
-              <th>割賦会社（S社）<span class="plan-subtext" id="sPlanText">●台全て割賦で購入</span></th>
-              <th>割賦会社（A社）<span class="plan-subtext" id="aPlanText">●台全て割賦で購入</span></th>
-              <th>ハイブリッド（S社）<span class="plan-subtext" id="hybridSPlanText">△台は現金、□台は割賦で購入</span></th>
-              <th>ハイブリッド（A社）<span class="plan-subtext" id="hybridAPlanText">△台は現金、□台は割賦で購入</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="same-value-row">
-              <td class="compare-label">想定自販機利益<br>（60ヵ月）</td>
-              <td class="compare-merged-value" id="machineProfitMerged" colspan="5">—</td>
-            </tr>
-            <tr class="section-divider">
-              <td class="compare-label">初期手出し</td>
-              <td id="cashInitial">—</td>
-              <td id="sInitial">—</td>
-              <td id="aInitial">—</td>
-              <td id="hybridSInitial">—</td>
-              <td id="hybridAInitial">—</td>
-            </tr>
-            <tr>
-              <td class="compare-label">月額支払い</td>
-              <td id="cashMonthly">—</td>
-              <td id="sMonthly">—</td>
-              <td id="aMonthly">—</td>
-              <td id="hybridSMonthly">—</td>
-              <td id="hybridAMonthly">—</td>
-            </tr>
-            <tr>
-              <td class="compare-label">総支払額<br>（60ヵ月）</td>
-              <td id="cashTotal">—</td>
-              <td id="sTotal">—</td>
-              <td id="aTotal">—</td>
-              <td id="hybridSTotal">—</td>
-              <td id="hybridATotal">—</td>
-            </tr>
-            <tr>
-              <td class="compare-label">買取価格</td>
-              <td id="cashBuyback">—</td>
-              <td id="sBuyback">—</td>
-              <td id="aBuyback">—</td>
-              <td id="hybridSBuyback">—</td>
-              <td id="hybridABuyback">—</td>
-            </tr>
-            <tr>
-              <td class="compare-label">小計（税込）</td>
-              <td id="cashSubtotal">—</td>
-              <td id="sSubtotal">—</td>
-              <td id="aSubtotal">—</td>
-              <td id="hybridSSubtotal">—</td>
-              <td id="hybridASubtotal">—</td>
-            </tr>
-            <tr class="section-divider">
-              <td class="compare-label">還元率</td>
-              <td id="cashReturnRate">—</td>
-              <td id="sReturnRate">—</td>
-              <td id="aReturnRate">—</td>
-              <td id="hybridSReturnRate">—</td>
-              <td id="hybridAReturnRate">—</td>
-            </tr>
-            <tr class="emphasis-row">
-              <td class="compare-label">節税効果<br>（35%）</td>
-              <td class="compare-merged-value" id="taxEffectMerged" class="gold-strong" class="gold-strong" colspan="5">—</td>
-            </tr>
-            <tr>
-              <td class="compare-label">実質還元率</td>
-              <td id="cashRealReturnRate">—</td>
-              <td id="sRealReturnRate">—</td>
-              <td id="aRealReturnRate">—</td>
-              <td id="hybridSRealReturnRate">—</td>
-              <td id="hybridARealReturnRate">—</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p class="notice">
-        ※ 1台あたり総投資額は11,000,000円、税抜投資額は10,000,000円です。<br>
-        ※ 割賦会社（A社）の支払いには23.4%の分割払手数料が含まれています。（上記比較表は手数料込みの金額です。）
-      </p>
-    </section>
-
-    <section class="section" id="contact">
-      <h2>無料相談 / 資料請求</h2>
-      <p class="section-copy">ご入力内容をもとに、より詳細な収支設計や導入条件のご相談が可能です。</p>
-
-      <div class="form-embed-wrap">
-        <iframe
-          src="https://docs.google.com/forms/d/e/1FAIpQLSeBtMdhFv6VtwjU6vegr0nRRLsJoy_oZcJoCZtH4rLoUAWZaw/viewform?embedded=true"
-          width="640"
-          height="911"
-          frameborder="0"
-          marginheight="0"
-          marginwidth="0"
-        >読み込んでいます…</iframe>
-      </div>
+<h2>プラン比較</h2>
+<p class="section-copy">現金購入と弊社が提携している割賦会社（S社）・割賦会社（A社）を使用した場合の購入比較です。</p>
+<p class="comparison-note">※ 当社での購入方法での比較となります。<br/>※ ハイブリッドは、一部を現金・一部を割賦で購入した場合の比較です。</p>
+<div class="compare-setting-grid">
+<div class="mini-card">
+<h4>ハイブリッド配分</h4>
+<div class="field">
+<label for="hybridCashUnits">現金台数</label>
+<input id="hybridCashUnits" min="0" step="1" type="number" value="1"/>
+<small></small>
+</div>
+<div class="field">
+<label for="hybridInstallmentUnitsDisplay">割賦台数</label>
+<input id="hybridInstallmentUnitsDisplay" readonly="" type="number" value="2"/>
+</div>
+</div>
+</div>
+<div class="compare-wrap">
+<table>
+<thead>
+<tr>
+<th>比較項目</th>
+<th><span class="plan-label">税負担そのまま</span><br/>何もしない場合<span class="plan-subtext">利益に対して納税</span></th>
+<th style="font-size:15px;"><span class="plan-label">節税最大化</span><br/>現金<span class="plan-subtext" id="cashPlanText">●台全て現金購入</span></th>
+<th><span class="plan-label">資金温存重視</span><br/>割賦会社（S社）<span class="plan-subtext" id="sPlanText">●台全て割賦で購入</span></th>
+<th><span class="plan-label">資金温存重視</span><br/>割賦会社（A社）<span class="plan-subtext" id="aPlanText">●台全て割賦で購入</span></th>
+<th><span class="plan-label">バランス重視</span><br/>ハイブリッド（S社）<span class="plan-subtext" id="hybridSPlanText">△台は現金、□台は割賦で購入</span></th>
+<th><span class="plan-label">バランス重視</span><br/>ハイブリッド（A社）<span class="plan-subtext" id="hybridAPlanText">△台は現金、□台は割賦で購入</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="compare-label">想定自販機利益<br/>（60ヵ月）</td>
+<td id="noneMachineProfit">¥0</td>
+<td id="cashMachineProfit">—</td>
+<td id="sMachineProfit">—</td>
+<td id="aMachineProfit">—</td>
+<td id="hybridSMachineProfit">—</td>
+<td id="hybridAMachineProfit">—</td>
+</tr>
+<tr class="section-divider">
+<td class="compare-label">初期手出し</td>
+<td id="noneInitial">¥0</td>
+<td id="cashInitial">—</td>
+<td id="sInitial">—</td>
+<td id="aInitial">—</td>
+<td id="hybridSInitial">—</td>
+<td id="hybridAInitial">—</td>
+</tr>
+<tr>
+<td class="compare-label">月額支払い</td>
+<td id="noneMonthly">¥0</td>
+<td id="cashMonthly">—</td>
+<td id="sMonthly">—</td>
+<td id="aMonthly">—</td>
+<td id="hybridSMonthly">—</td>
+<td id="hybridAMonthly">—</td>
+</tr>
+<tr>
+<td class="compare-label">総支払額<br/>（60ヵ月）</td>
+<td id="noneTotal">¥0</td>
+<td id="cashTotal">—</td>
+<td id="sTotal">—</td>
+<td id="aTotal">—</td>
+<td id="hybridSTotal">—</td>
+<td id="hybridATotal">—</td>
+</tr>
+<tr>
+<td class="compare-label">買取価格</td>
+<td id="noneBuyback">¥0</td>
+<td id="cashBuyback">—</td>
+<td id="sBuyback">—</td>
+<td id="aBuyback">—</td>
+<td id="hybridSBuyback">—</td>
+<td id="hybridABuyback">—</td>
+</tr>
+<tr>
+<td class="compare-label">小計（税込）</td>
+<td id="noneSubtotal">¥0</td>
+<td id="cashSubtotal">—</td>
+<td id="sSubtotal">—</td>
+<td id="aSubtotal">—</td>
+<td id="hybridSSubtotal">—</td>
+<td id="hybridASubtotal">—</td>
+</tr>
+<tr class="section-divider">
+<td class="compare-label">還元率</td>
+<td id="noneReturnRate">—</td>
+<td id="cashReturnRate">—</td>
+<td id="sReturnRate">—</td>
+<td id="aReturnRate">—</td>
+<td id="hybridSReturnRate">—</td>
+<td id="hybridAReturnRate">—</td>
+</tr>
+<tr class="emphasis-row">
+<td class="compare-label">想定節税額</td>
+<td id="noneTaxSaving">¥0</td>
+<td id="cashTaxSaving">—</td>
+<td id="sTaxSaving">—</td>
+<td id="aTaxSaving">—</td>
+<td id="hybridSTaxSaving">—</td>
+<td id="hybridATaxSaving">—</td>
+</tr>
+<tr>
+<td class="compare-label">想定納税額</td>
+<td id="noneTaxPayment">—</td>
+<td id="cashTaxPayment">—</td>
+<td id="sTaxPayment">—</td>
+<td id="aTaxPayment">—</td>
+<td id="hybridSTaxPayment">—</td>
+<td id="hybridATaxPayment">—</td>
+</tr>
+<tr>
+<td class="compare-label">実質還元率</td>
+<td id="noneRealReturnRate">—</td>
+<td id="cashRealReturnRate">—</td>
+<td id="sRealReturnRate">—</td>
+<td id="aRealReturnRate">—</td>
+<td id="hybridSRealReturnRate">—</td>
+<td id="hybridARealReturnRate">—</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="trust-points">
+<div class="trust-point">
+<span class="trust-icon">🅰️</span>
+<div class="trust-copy">
+<div class="trust-text">中小企業経営強化税制（A類型）対応</div>
+<div class="trust-subtext">制度活用を前提にした導入設計に対応</div>
+</div>
+</div>
+<div class="trust-point">
+<span class="trust-icon">🛡️</span>
+<div class="trust-copy">
+<div class="trust-text">税務調査否認0件</div>
+<div class="trust-subtext">これまでの導入実績ベースでの安心材料</div>
+</div>
+</div>
+<div class="trust-point">
+<span class="trust-icon">🤝</span>
+<div class="trust-copy">
+<div class="trust-text">税理士・会計事務所提携<br/>100社以上</div>
+<div class="trust-subtext">専門家ネットワークと連携したご提案体制</div>
+</div>
+</div>
+</div>
 <p class="notice">
-        ※ 本サイトの数値は概算です。詳細条件により変動します。<br>
-        ※ 詳細は個別相談にてご案内します。<br>
+        ※ 1台あたり総投資額は11,000,000円、税抜投資額は10,000,000円です。<br/>
+        ※ 割賦会社（A社）の支払いには23.4%の分割払手数料が含まれています。（上記比較表は手数料込みの金額です。）<br/>
+        ※ 想定節税額は、当期利益額の範囲内で計算した概算です。
+      </p>
+</section>
+<section class="section" id="contact">
+<h2>無料相談 / 資料請求</h2>
+<p class="section-copy">ご入力内容をもとに、より詳細な収支設計や導入条件のご相談が可能です。</p>
+<div class="form-embed-wrap">
+<iframe frameborder="0" height="911" marginheight="0" marginwidth="0" src="https://docs.google.com/forms/d/e/1FAIpQLSeBtMdhFv6VtwjU6vegr0nRRLsJoy_oZcJoCZtH4rLoUAWZaw/viewform?embedded=true" width="640">読み込んでいます…</iframe>
+</div>
+<p class="notice">
+        ※ 本サイトの数値は概算です。詳細条件により変動します。<br/>
+        ※ 詳細は個別相談にてご案内します。<br/>
         ※ 税務は必ず税理士確認が必要です。
       </p>
-    </section>
-
-    <div class="cta-box">
-      <div class="cta-inner">
-        <div>
-          <h3 class="cta-title">導入可否を、まず数字で確認しませんか。</h3>
-          <p class="cta-copy">スマホでもそのまま使えます。シミュレーション後は無料相談・資料請求へ進めます。</p>
-        </div>
-        <div class="cta-actions">
-          <a class="btn btn-gold" href="#simulator">シミュレーションする</a>
-          <a class="btn btn-line" href="#contact">無料相談</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
+</section>
+<div class="cta-box">
+<div class="cta-inner">
+<div>
+<h3 class="cta-title">あなたの会社でどれくらい節税できるか、今すぐ確認しませんか？</h3>
+</div>
+<div class="cta-actions">
+<a class="btn btn-gold" href="#simulator">シミュレーションする</a>
+<a class="btn btn-line" href="#contact">無料相談</a>
+</div>
+</div>
+</div>
+</header></div>
+<script>
     const UNIT_PRICE_TOTAL = 11000000;
     const UNIT_PRICE_TAX_EXCLUDED = 10000000;
     const TAX_RATE_FIXED = 0.35;
     const INSTALLMENT_MONTHS = 60;
-    const DESIRED_SAVING_UNIT_YEN = 10000000;
+    const PROFIT_INPUT_UNIT_YEN = 10000000;
     const MONTHLY_MACHINE_PROFIT_FIXED = 192000;
-    const MACHINE_PROFIT_60M_FIXED = 11520000;
+    const ANNUAL_MACHINE_PROFIT_FIXED = MONTHLY_MACHINE_PROFIT_FIXED * 12;
+    const MACHINE_PROFIT_60M_FIXED = MONTHLY_MACHINE_PROFIT_FIXED * 60;
 
     const S_MONTHLY_PER_UNIT = 183300;
-    const A_STANDARD_MONTHLY_PER_UNIT_DISPLAY = 226000;
-    const A_FIRST_MONTHLY_PER_UNIT_DISPLAY = 228200;
     const A_TOTAL_FACTOR = 1.234;
 
     const BUYBACK_CASH = 1680000;
@@ -1097,6 +1233,7 @@
 
     const watchedIds = [
       'desiredSavingUnitInput',
+      'unitsInput',
       'hybridCashUnits'
     ];
 
@@ -1118,16 +1255,33 @@
       return Math.min(Math.max(n, min), max);
     }
 
-    function parseDesiredSavingUnits() {
+    function parseProfitUnits() {
       const raw = document.getElementById('desiredSavingUnitInput').value.trim();
+      if (raw === '') return null;
+      const n = Math.floor(Number(raw));
+      return Number.isFinite(n) && n >= 0 ? n : null;
+    }
+
+    function parseUnits() {
+      const raw = document.getElementById('unitsInput').value.trim();
       if (raw === '') return null;
       const n = Math.floor(Number(raw));
       return Number.isFinite(n) && n > 0 ? n : null;
     }
 
-    function getDesiredSavingYen() {
-      const units = parseDesiredSavingUnits();
-      return units === null ? null : units * DESIRED_SAVING_UNIT_YEN;
+    function getCurrentProfitYen() {
+      const units = parseProfitUnits();
+      return units === null ? null : units * PROFIT_INPUT_UNIT_YEN;
+    }
+
+    function calcTaxSaving(currentProfitYen, machineUnits) {
+      const deductibleBase = machineUnits * UNIT_PRICE_TAX_EXCLUDED;
+      return Math.min(currentProfitYen, deductibleBase) * TAX_RATE_FIXED;
+    }
+
+    function calcTaxPayment(currentProfitYen, taxSaving) {
+      const baseTax = currentProfitYen * TAX_RATE_FIXED;
+      return Math.max(baseTax - taxSaving, 0);
     }
 
     function setText(id, value) {
@@ -1151,76 +1305,119 @@
       if (rate !== null) el.classList.add(getRateClass(rate));
     }
 
-    function calcCashScenario(units) {
+    function calcCashScenario(units, currentProfitYen) {
       const total = units * UNIT_PRICE_TOTAL;
-      const taxEffect = units * UNIT_PRICE_TAX_EXCLUDED * TAX_RATE_FIXED;
+      const taxSaving = calcTaxSaving(currentProfitYen, units);
+      const taxPayment = calcTaxPayment(currentProfitYen, taxSaving);
+      const machineProfit = units * MACHINE_PROFIT_60M_FIXED;
+      const subtotal = machineProfit + (units * BUYBACK_CASH);
       return {
+        machineProfit,
         initial: total,
         monthlyText: '¥0',
         total,
         buyback: units * BUYBACK_CASH,
-        subtotal: (units * MACHINE_PROFIT_60M_FIXED) + (units * BUYBACK_CASH),
-        returnRate: ((units * MACHINE_PROFIT_60M_FIXED) + (units * BUYBACK_CASH)) / total,
-        realReturnRate: ((units * MACHINE_PROFIT_60M_FIXED) + (units * BUYBACK_CASH) + taxEffect) / total
+        subtotal,
+        taxSaving,
+        taxPayment,
+        returnRate: total === 0 ? null : (subtotal / total),
+        realReturnRate: total === 0 ? null : ((subtotal + taxSaving) / total)
       };
     }
 
-    function calcSScenario(installmentUnits, initialCashUnits = 0) {
+    function calcSScenario(installmentUnits, initialCashUnits, currentProfitYen) {
       const monthly = installmentUnits * S_MONTHLY_PER_UNIT;
       const total = (initialCashUnits * UNIT_PRICE_TOTAL) + (monthly * INSTALLMENT_MONTHS);
       const allUnits = installmentUnits + initialCashUnits;
-      const taxEffect = allUnits * UNIT_PRICE_TAX_EXCLUDED * TAX_RATE_FIXED;
+      const taxSaving = calcTaxSaving(currentProfitYen, allUnits);
+      const taxPayment = calcTaxPayment(currentProfitYen, taxSaving);
+      const machineProfit = allUnits * MACHINE_PROFIT_60M_FIXED;
+      const subtotal = machineProfit + (allUnits * BUYBACK_S);
       return {
+        machineProfit,
         initial: initialCashUnits * UNIT_PRICE_TOTAL,
         monthlyText: installmentUnits === 0 ? '¥0' : formatYen(monthly),
         total,
         buyback: allUnits * BUYBACK_S,
-        subtotal: (allUnits * MACHINE_PROFIT_60M_FIXED) + (allUnits * BUYBACK_S),
-        returnRate: total === 0 ? 0 : (((allUnits * MACHINE_PROFIT_60M_FIXED) + (allUnits * BUYBACK_S)) / total),
-        realReturnRate: total === 0 ? 0 : ((((allUnits * MACHINE_PROFIT_60M_FIXED) + (allUnits * BUYBACK_S)) + taxEffect) / total)
+        subtotal,
+        taxSaving,
+        taxPayment,
+        returnRate: total === 0 ? null : (subtotal / total),
+        realReturnRate: total === 0 ? null : ((subtotal + taxSaving) / total)
       };
     }
 
-    function calcAScenario(installmentUnits, initialCashUnits = 0) {
+    function calcAScenario(installmentUnits, initialCashUnits, currentProfitYen) {
       const financedTotalPerUnit = UNIT_PRICE_TOTAL * A_TOTAL_FACTOR;
-      const total = (initialCashUnits * UNIT_PRICE_TOTAL) + (installmentUnits * financedTotalPerUnit);
-      const standardMonthlyDisplay = installmentUnits * A_STANDARD_MONTHLY_PER_UNIT_DISPLAY;
-      const firstMonthlyDisplay = installmentUnits * A_FIRST_MONTHLY_PER_UNIT_DISPLAY;
+      const financedTotal = installmentUnits * financedTotalPerUnit;
+
+      // A社は「通常月を100円単位でそろえ、端数は初回へ寄せる」設計
+      const baseMonthly = installmentUnits === 0
+        ? 0
+        : Math.floor((financedTotal / INSTALLMENT_MONTHS) / 100) * 100;
+      const firstMonthly = installmentUnits === 0
+        ? 0
+        : financedTotal - (baseMonthly * (INSTALLMENT_MONTHS - 1));
+
+      const total = (initialCashUnits * UNIT_PRICE_TOTAL) + financedTotal;
       const allUnits = installmentUnits + initialCashUnits;
-      const taxEffect = allUnits * UNIT_PRICE_TAX_EXCLUDED * TAX_RATE_FIXED;
+      const taxSaving = calcTaxSaving(currentProfitYen, allUnits);
+      const taxPayment = calcTaxPayment(currentProfitYen, taxSaving);
+      const machineProfit = allUnits * MACHINE_PROFIT_60M_FIXED;
+      const subtotal = machineProfit + (allUnits * BUYBACK_A);
       return {
+        machineProfit,
         initial: initialCashUnits * UNIT_PRICE_TOTAL,
         monthlyText: installmentUnits === 0
           ? '¥0'
-          : `${formatYen(standardMonthlyDisplay)}<br><span class="monthly-note">※初回のみ${formatYen(firstMonthlyDisplay)}</span>`,
+          : `${formatYen(baseMonthly)}<br><span class="monthly-note">※初回のみ${formatYen(firstMonthly)}</span>`,
         total,
         buyback: allUnits * BUYBACK_A,
-        subtotal: (allUnits * MACHINE_PROFIT_60M_FIXED) + (allUnits * BUYBACK_A),
-        returnRate: total === 0 ? 0 : (((allUnits * MACHINE_PROFIT_60M_FIXED) + (allUnits * BUYBACK_A)) / total),
-        realReturnRate: total === 0 ? 0 : ((((allUnits * MACHINE_PROFIT_60M_FIXED) + (allUnits * BUYBACK_A)) + taxEffect) / total)
+        subtotal,
+        taxSaving,
+        taxPayment,
+        returnRate: total === 0 ? null : (subtotal / total),
+        realReturnRate: total === 0 ? null : ((subtotal + taxSaving) / total)
       };
     }
 
     function renderScenario(prefix, data) {
+      setText(`${prefix}MachineProfit`, formatYen(data.machineProfit));
       setText(`${prefix}Initial`, formatYen(data.initial));
       setHTML(`${prefix}Monthly`, data.monthlyText);
       setText(`${prefix}Total`, formatYen(data.total));
       setText(`${prefix}Buyback`, formatYen(data.buyback));
       setText(`${prefix}Subtotal`, formatYen(data.subtotal));
-      setText(`${prefix}ReturnRate`, formatPercent(data.returnRate));
-      setText(`${prefix}RealReturnRate`, formatPercent(data.realReturnRate));
+      setText(`${prefix}TaxSaving`, formatYen(data.taxSaving));
+      setText(`${prefix}TaxPayment`, formatYen(data.taxPayment));
+      setText(`${prefix}ReturnRate`, data.returnRate === null ? '—' : formatPercent(data.returnRate));
+      setText(`${prefix}RealReturnRate`, data.realReturnRate === null ? '—' : formatPercent(data.realReturnRate));
       applyRateClass(`${prefix}ReturnRate`, data.returnRate);
       applyRateClass(`${prefix}RealReturnRate`, data.realReturnRate);
     }
 
+    function renderNoAction(currentProfitYen) {
+      const tax = currentProfitYen * TAX_RATE_FIXED;
+      setText('noneMachineProfit', '¥0');
+      setText('noneInitial', '¥0');
+      setText('noneMonthly', '¥0');
+      setText('noneTotal', '¥0');
+      setText('noneBuyback', '¥0');
+      setText('noneSubtotal', '¥0');
+      setText('noneTaxSaving', '¥0');
+      setText('noneTaxPayment', formatYen(tax));
+      setText('noneReturnRate', '—');
+      setText('noneRealReturnRate', '—');
+      document.getElementById('noneReturnRate').classList.remove('rate-gold', 'rate-good', 'rate-mid', 'rate-low');
+      document.getElementById('noneRealReturnRate').classList.remove('rate-gold', 'rate-good', 'rate-mid', 'rate-low');
+    }
+
     function renderEmptyState() {
-      document.getElementById('unitsInput').value = '';
       document.getElementById('hybridInstallmentUnitsDisplay').value = '';
       document.getElementById('taxSavingValue').textContent = '—';
       document.getElementById('realBurdenValue').textContent = '—';
-      document.getElementById('monthlyMachineProfitValue').textContent = formatYen(MONTHLY_MACHINE_PROFIT_FIXED);
-      document.getElementById('taxEffectMerged').textContent = '—';
-      document.getElementById('machineProfitMerged').textContent = '—';
+      document.getElementById('monthlyMachineProfitValue').textContent = '—';
+      document.getElementById('paybackMonthsValue').textContent = '—';
       document.getElementById('cashPlanText').textContent = '●台全て現金購入';
       document.getElementById('sPlanText').textContent = '●台全て割賦で購入';
       document.getElementById('aPlanText').textContent = '●台全て割賦で購入';
@@ -1228,52 +1425,62 @@
       document.getElementById('hybridAPlanText').textContent = '△台は現金、□台は割賦で購入';
 
       [
-        'cashInitial','sInitial','aInitial','hybridSInitial','hybridAInitial',
-        'cashMonthly','sMonthly','aMonthly','hybridSMonthly','hybridAMonthly',
-        'cashTotal','sTotal','aTotal','hybridSTotal','hybridATotal',
-        'cashBuyback','sBuyback','aBuyback','hybridSBuyback','hybridABuyback',
-        'cashSubtotal','sSubtotal','aSubtotal','hybridSSubtotal','hybridASubtotal',
-        'cashReturnRate','sReturnRate','aReturnRate','hybridSReturnRate','hybridAReturnRate',
-        'cashRealReturnRate','sRealReturnRate','aRealReturnRate','hybridSRealReturnRate','hybridARealReturnRate'
+        'cashMachineProfit','sMachineProfit','aMachineProfit','hybridSMachineProfit','hybridAMachineProfit','noneMachineProfit',
+        'cashInitial','sInitial','aInitial','hybridSInitial','hybridAInitial','noneInitial',
+        'cashMonthly','sMonthly','aMonthly','hybridSMonthly','hybridAMonthly','noneMonthly',
+        'cashTotal','sTotal','aTotal','hybridSTotal','hybridATotal','noneTotal',
+        'cashBuyback','sBuyback','aBuyback','hybridSBuyback','hybridABuyback','noneBuyback',
+        'cashSubtotal','sSubtotal','aSubtotal','hybridSSubtotal','hybridASubtotal','noneSubtotal',
+        'cashReturnRate','sReturnRate','aReturnRate','hybridSReturnRate','hybridAReturnRate','noneReturnRate',
+        'cashTaxSaving','sTaxSaving','aTaxSaving','hybridSTaxSaving','hybridATaxSaving','noneTaxSaving',
+        'cashTaxPayment','sTaxPayment','aTaxPayment','hybridSTaxPayment','hybridATaxPayment','noneTaxPayment',
+        'cashRealReturnRate','sRealReturnRate','aRealReturnRate','hybridSRealReturnRate','hybridARealReturnRate','noneRealReturnRate'
       ].forEach((id) => {
         const el = document.getElementById(id);
-        el.innerHTML = '—';
+        if (id.startsWith('none')) {
+          if (id === 'noneTaxPayment') { el.innerHTML = '—'; }
+          else if (id === 'noneReturnRate' || id === 'noneRealReturnRate') { el.innerHTML = '—'; }
+          else { el.innerHTML = '¥0'; }
+        } else {
+          el.innerHTML = '—';
+        }
         el.classList.remove('rate-gold', 'rate-good', 'rate-mid', 'rate-low');
       });
     }
 
     function calculate(shouldScroll = false) {
-      const desiredUnits = parseDesiredSavingUnits();
+      const profitUnits = parseProfitUnits();
+      const units = parseUnits();
 
-      if (desiredUnits === null) {
+      if (profitUnits === null || units === null) {
         renderEmptyState();
         return;
       }
 
-      const units = desiredUnits;
-      document.getElementById('unitsInput').value = units;
-
+      const currentProfitYen = getCurrentProfitYen();
       let hybridCashUnits = clampInt(document.getElementById('hybridCashUnits').value, 0, units);
       document.getElementById('hybridCashUnits').value = hybridCashUnits;
       const hybridInstallmentUnits = units - hybridCashUnits;
       document.getElementById('hybridInstallmentUnitsDisplay').value = hybridInstallmentUnits;
 
-      const cashScenario = calcCashScenario(units);
-      const sScenario = calcSScenario(units, 0);
-      const aScenario = calcAScenario(units, 0);
-      const hybridSScenario = calcSScenario(hybridInstallmentUnits, hybridCashUnits);
-      const hybridAScenario = calcAScenario(hybridInstallmentUnits, hybridCashUnits);
+      const cashScenario = calcCashScenario(units, currentProfitYen);
+      const sScenario = calcSScenario(units, 0, currentProfitYen);
+      const aScenario = calcAScenario(units, 0, currentProfitYen);
+      const hybridSScenario = calcSScenario(hybridInstallmentUnits, hybridCashUnits, currentProfitYen);
+      const hybridAScenario = calcAScenario(hybridInstallmentUnits, hybridCashUnits, currentProfitYen);
 
-      const totalTaxSaving = units * UNIT_PRICE_TAX_EXCLUDED * TAX_RATE_FIXED;
+      const totalTaxSaving = calcTaxSaving(currentProfitYen, units);
       const totalInvestment = units * UNIT_PRICE_TOTAL;
       const realBurden = totalInvestment - totalTaxSaving;
+      const annualRevenue = units * ANNUAL_MACHINE_PROFIT_FIXED;
+      const monthlyRevenue = units * MONTHLY_MACHINE_PROFIT_FIXED;
+      const paybackMonths = monthlyRevenue > 0 ? (realBurden / monthlyRevenue) : null;
 
       setText('taxSavingValue', formatYen(totalTaxSaving));
       setText('realBurdenValue', formatYen(realBurden));
-      setText('monthlyMachineProfitValue', formatYen(MONTHLY_MACHINE_PROFIT_FIXED));
+      setText('monthlyMachineProfitValue', formatYen(annualRevenue));
+      setText('paybackMonthsValue', paybackMonths === null ? '—' : `${Math.ceil(paybackMonths)}か月`);
 
-      setText('taxEffectMerged', formatYen(totalTaxSaving));
-      setText('machineProfitMerged', formatYen(units * MACHINE_PROFIT_60M_FIXED));
       document.getElementById('cashPlanText').textContent = `${units}台全て現金購入`;
       document.getElementById('sPlanText').textContent = `${units}台全て割賦で購入`;
       document.getElementById('aPlanText').textContent = `${units}台全て割賦で購入`;
@@ -1285,6 +1492,7 @@
       renderScenario('a', aScenario);
       renderScenario('hybridS', hybridSScenario);
       renderScenario('hybridA', hybridAScenario);
+      renderNoAction(currentProfitYen);
 
       if (shouldScroll) {
         document.getElementById('result-summary').scrollIntoView({ behavior: 'smooth', block: 'start' });
