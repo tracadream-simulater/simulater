@@ -616,7 +616,7 @@
       .section { padding: 14px; border-radius: 20px; }
       .hero-box { padding: 18px 14px; border-radius: 24px; }
       .hero-copy, .section-copy, .comparison-note, .notice { font-size: 13px; line-height: 1.7; }
-      .section h2 { font-size: 24px; }
+      .section h2 { font-size: 20px; }
       .video-section { padding: 16px 14px; }
       .video-title { font-size: 16px; }
       .slider-shell { border-radius: 18px; }
@@ -641,7 +641,7 @@
         margin-bottom: 8px;
       }
       .summary-card .num {
-        font-size: 24px;
+        font-size: 20px;
         line-height: 1.2;
       }
       .summary-card .desc {
@@ -888,7 +888,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 20px;
       background: linear-gradient(135deg, rgba(199, 155, 75, 0.22), rgba(255,255,255,0.95));
       border: 1px solid rgba(199, 155, 75, 0.22);
       flex: 0 0 52px;
@@ -973,6 +973,78 @@
       }
     }
 
+
+    .contact-card {
+      width: 100%;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 18px;
+      background: #ffffff;
+      padding: 34px 20px 36px;
+      text-align: center;
+    }
+
+    .contact-card-text {
+      margin: 0 0 24px;
+      font-size: 16px;
+      line-height: 1.9;
+      color: #333333;
+      letter-spacing: 0.04em;
+    }
+
+    .contact-main-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      min-width: 280px;
+      padding: 15px 34px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #e6c261 0%, #c99b2d 100%);
+      color: #ffffff !important;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      line-height: 1;
+      box-shadow: 0 10px 18px rgba(112, 83, 24, 0.22);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    }
+
+    .contact-main-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 22px rgba(112, 83, 24, 0.26);
+      opacity: 0.96;
+    }
+
+    .contact-main-button .arrow {
+      font-size: 28px;
+      line-height: 1;
+      margin-top: -1px;
+    }
+
+    @media (max-width: 920px) {
+      .contact-card {
+        padding: 28px 16px 30px;
+      }
+
+      .contact-card-text {
+        font-size: 14px;
+        line-height: 1.8;
+        margin-bottom: 20px;
+      }
+
+      .contact-main-button {
+        width: 100%;
+        min-width: 0;
+        padding: 16px 24px;
+        font-size: 20px;
+      }
+
+      .contact-main-button .arrow {
+        font-size: 28px;
+      }
+    }
+
 </style>
 </head>
 <body>
@@ -1004,7 +1076,7 @@
             </p>
 <div class="hero-actions">
 <a class="btn btn-gold" href="#simulator">シミュレーションする</a>
-<a class="btn btn-line" href="#contact">無料相談へ進む</a>
+<a class="btn btn-line" href="https://showtime-traca.com/#contact">無料相談へ進む</a>
 </div>
 </div>
 </div>
@@ -1237,9 +1309,15 @@
 <section class="section" id="contact">
 <h2>無料相談 / 資料請求</h2>
 <p class="section-copy">ご入力内容をもとに、より詳細な収支設計や導入条件のご相談が可能です。</p>
-<div class="form-embed-wrap">
-<iframe frameborder="0" height="911" marginheight="0" marginwidth="0" src="https://docs.google.com/forms/d/e/1FAIpQLSeBtMdhFv6VtwjU6vegr0nRRLsJoy_oZcJoCZtH4rLoUAWZaw/viewform?embedded=true" width="640">読み込んでいます…</iframe>
+
+<div class="contact-card">
+<p class="contact-card-text">詳細なご相談・資料請求は、下記ボタンよりお問い合わせください。</p>
+<a class="contact-main-button" href="https://showtime-traca.com/#contact">
+<span>問合せはこちら</span>
+<span class="arrow">›</span>
+</a>
 </div>
+
 <p class="notice">
         ※ 本サイトの数値は概算です。詳細条件により変動します。<br/>
         ※ 詳細は個別相談にてご案内します。<br/>
@@ -1253,7 +1331,7 @@
 </div>
 <div class="cta-actions">
 <a class="btn btn-gold" href="#simulator">シミュレーションする</a>
-<a class="btn btn-line" href="#contact">無料相談</a>
+<a class="btn btn-line" href="https://showtime-traca.com/#contact">問合せはこちら</a>
 </div>
 </div>
 </div>
